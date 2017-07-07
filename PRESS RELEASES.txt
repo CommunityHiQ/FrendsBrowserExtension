@@ -1,0 +1,14 @@
+1.0
+
+Lust, Violence, Hunger, Pencil, Jefim - all those things come to mind when speaking about writing documentation. How does the pencil fit in? Nobody cares. Do I have something for you today? Absolutely!
+
+From the creator of the Jefim's Incredible XSLT Tool comes a new, revolutionary tool that will make your smiles twice as happy when you're documenting things. Here comes your new favourite IEX tool:
+
+ === Jefim's Mondboggling Documentation Aberration 1.0 ===
+
+With a press of a button you can:
+1. Copy the process documentation table to clipboard.
+2. Same as avobe + save PNG screenshot (who need SVG anyway?!) of the process for use in Confluence!
+
+Now I want you to pause for just a second. Breathe in. Breathe out. Resist the urge to scream your lungs out in joy - people are working here you know. Now go get the extension from  ... \\lulu ...
+

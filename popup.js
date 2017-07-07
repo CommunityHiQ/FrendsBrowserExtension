@@ -4,6 +4,9 @@ if (!Array.prototype.contains) {
         return this.indexOf(s) > -1
     }
 }
+
+var spinner;
+
 function copyMime(str, mimetype) {
   document.oncopy = function(event) {
     event.clipboardData.setData(mimetype, str);
@@ -11,10 +14,22 @@ function copyMime(str, mimetype) {
   };
   document.execCommand("Copy", false, null);
 }
-function copy(str) {
-    var sandbox = $('#sandbox').val(str).select();
-    document.execCommand('copy');
-    sandbox.val('');
+
+function svgToPng(svg) {
+  var svgData = new XMLSerializer().serializeToString( svg );
+
+  var canvas = document.createElement( "canvas" );
+  var ctx = canvas.getContext( "2d" );
+
+  var img = document.createElement( "img" );
+  img.setAttribute( "src", "data:image/svg+xml;base64," + btoa( svgData ) );
+
+  img.onload = function() {
+      ctx.drawImage( img, 0, 0 );
+      
+      // Now is done
+      return canvas.toDataURL( "image/png" );
+  };
 }
 
 function processNode(node, processedNodes, allNodes)
@@ -67,7 +82,7 @@ function processProcess(processNodes) {
     return processedNodes;
 }
 
-function doAllTheStuff(processJson, tasksJson)
+function doAllTheStuff(processJson, tasksJson, savePicture)
 {
     parser = new DOMParser();
     //console.log(responseJson.bpmn);
@@ -139,7 +154,20 @@ function doAllTheStuff(processJson, tasksJson)
         "</tr>";
       outputStr += strHtml;
     }
+
+    outputStr += "</table>";
+
+    copyMime(outputStr, 'text/html');
     
+    if(!savePicture) { 
+      //alert("All done, just paste into Confluence now");
+      spinner.stop();
+      $('#status').text('DONE!!!!111');
+      $('#status').fadeIn(100).fadeOut(3000);
+
+      return;
+    }
+
     // Export svg
     var BpmnViewer = window.BpmnJS;
     var viewer = new BpmnViewer({ container: 'body' });
@@ -150,7 +178,6 @@ function doAllTheStuff(processJson, tasksJson)
         console.log('Successfully rendered SVG');
         viewer.saveSVG(function(err, svg) {
           var svgDom = $(svg);
-          //console.log(processJson);
           var scriptTasks = svgDom.find('g[data-element-id*="ScriptTask_"]');
           for(var i = 0; i < scriptTasks.length; i++)
           {
@@ -180,24 +207,38 @@ function doAllTheStuff(processJson, tasksJson)
           var ctx = canvas.getContext( "2d" );
 
           var img = document.createElement( "img" );
-          img.setAttribute( "src", "data:image/svg+xml;base64," + btoa( svg ) );
+          img.setAttribute( "src", "data:image/svg+xml;base64," + btoa( svgDom[4].outerHTML ) );
           img.onload = function() {
               ctx.drawImage( img, 0, 0 );
-              var pngDataUrl = canvas.toDataURL( "image/png" );
-              
-              // Now is done
-              //console.log( pngDataUrl );
-
-              //var imageHtml = "<img src=\"" + pngDataUrl + "\" />";
-              var imageHtml = "<img src=\"data:image/svg+xml;base64," + btoa(svgDom[4].outerHTML) + "\" />";
-              outputStr = imageHtml + outputStr;
-              copyMime(outputStr, "text/html");
-              alert("Done! Now just paste info a Confluence document!");
+              var jpegBlob = canvas.toBlob(function(blob){
+                saveAs(blob, "img.png");
+                spinner.stop();
+                $('#status').text('DONE!!!!111');
+                $('#status').fadeIn(100).fadeOut(3000);
+              }, 'image/png');
           };
         });
       }
     });
 }
+
+function copyImageToClipboard(dataUrl) {
+    var img = $('<img src="'+dataUrl+'" />');
+    var div = $('#imgContainer');
+    div.empty();
+    div.append(img);
+    div.contentEditable = true;
+    var range;
+    if (document.createRange) {
+      range = document.createRange();
+      range.selectNodeContents(div[0]);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      div.focus();
+      document.execCommand('copy');
+    }
+    div.contentEditable = false;
+  }
 
 function wordWrap(str, maxWidth) {
     var newLineStr = "\n"; done = false; res = '';
@@ -231,12 +272,13 @@ function testWhite(x) {
 };
 
 // Called when the user clicks on the browser action.
-chrome.browserAction.onClicked.addListener(function(tab) {
-  copyDocumentationToClipboard(tab);
-});
+// chrome.browserAction.onClicked.addListener(function(tab) {
+//   copyDocumentationToClipboard(tab);
+// });
 
-function copyDocumentationToClipboard(tab) {
-  console.log(tab)
+function copyDocumentationToClipboard(tab, savePicture) {
+  spinner.spin();
+  console.log(tab);
   console.log('Processing ' + tab.url);
 
   // The initial URL is:
@@ -260,7 +302,7 @@ function copyDocumentationToClipboard(tab) {
       xhr2.onreadystatechange = function() {
         if (xhr2.readyState == 4) {
           var tasksJson = JSON.parse(xhr2.responseText);
-          doAllTheStuff(processJson, tasksJson);
+          doAllTheStuff(processJson, tasksJson, savePicture);
         }
       }
       xhr2.send();
@@ -270,3 +312,26 @@ function copyDocumentationToClipboard(tab) {
 
   var result = xhr.responseText;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var button = document.getElementById('copyDocs');
+    // onClick's logic below:
+    button.addEventListener('click', function() {
+      chrome.tabs.query({active: true}, function(tabs)
+      {
+        copyDocumentationToClipboard(tabs[0], false);
+      });
+    });
+
+    var buttonSaveWithImage = document.getElementById('copyDocsAndSaveImage');
+    // onClick's logic below:
+    buttonSaveWithImage.addEventListener('click', function() {
+      chrome.tabs.query({active: true}, function(tabs)
+      {
+        copyDocumentationToClipboard(tabs[0], true);
+      });
+    });
+
+    var target = document.getElementById('body')
+    spinner = new Spinner()
+});

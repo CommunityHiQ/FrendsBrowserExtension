@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <body style="width: 300px">
-        <div style="width: 300px">
+    <head>
+        <style rel="stylesheet" type="text/css">
+        button { margin: 5px; }
+        .bjs-container { width: 0 !important; height: 0 !important; }
+        </style>
+    </head>
+    <body style="width: 400px">
+        <div style="width:400px; text-align: center">
             <h3>Hello, FREND!</h3>
             <button id="copyDocs">Copy docs to clipboard</button>
+            <button id="copyDocsAndSaveImage">Copy docs to clipboard AND save screenshot PNG</button>
+            <p id="status" style="color:green; font-size: 250%"></p>
         </div>
+        <div style="height: 1px; width: 1px; overflow: none" id="imgContainer"></div>
 
-        <script src="popup.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="underscore.js"></script>
+        <script type="text/javascript" src="bpmn-viewer.js"></script>
+        <script type="text/javascript" src="filesaver.js"></script>
+        <script type="text/javascript" src="spin.min.js"></script>
+        <script type="text/javascript" src="popup.js"></script>
     </body>
 </html>
