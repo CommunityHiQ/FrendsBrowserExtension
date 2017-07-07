@@ -1,0 +1,142 @@
+{
+    "bpmn": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<bpmn2:definitions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\"><bpmn2:process id=\"Process_1\" isExecutable=\"false\"><bpmn2:startEvent id=\"StartEvent_1\" name=\"Manual\"><bpmn2:outgoing>SequenceFlow_1intgut</bpmn2:outgoing></bpmn2:startEvent><bpmn2:task id=\"Task_095nwfb\" name=\"Read file\"><bpmn2:incoming>SequenceFlow_1intgut</bpmn2:incoming><bpmn2:outgoing>SequenceFlow_1t5j14o</bpmn2:outgoing></bpmn2:task><bpmn2:sequenceFlow id=\"SequenceFlow_1intgut\" sourceRef=\"StartEvent_1\" targetRef=\"Task_095nwfb\" /><bpmn2:task id=\"Task_1rrr0q9\" name=\"Convert to HTML via XSLT\"><bpmn2:incoming>SequenceFlow_1t5j14o</bpmn2:incoming><bpmn2:outgoing>SequenceFlow_0rw14fx</bpmn2:outgoing></bpmn2:task><bpmn2:sequenceFlow id=\"SequenceFlow_1t5j14o\" sourceRef=\"Task_095nwfb\" targetRef=\"Task_1rrr0q9\" /><bpmn2:task id=\"Task_0ui5zfs\" name=\"Write file\"><bpmn2:incoming>SequenceFlow_0rw14fx</bpmn2:incoming><bpmn2:outgoing>SequenceFlow_1b3e9ht</bpmn2:outgoing></bpmn2:task><bpmn2:sequenceFlow id=\"SequenceFlow_0rw14fx\" sourceRef=\"Task_1rrr0q9\" targetRef=\"Task_0ui5zfs\" /><bpmn2:endEvent id=\"EndEvent_1i0wsx2\"><bpmn2:incoming>SequenceFlow_1b3e9ht</bpmn2:incoming></bpmn2:endEvent><bpmn2:sequenceFlow id=\"SequenceFlow_1b3e9ht\" sourceRef=\"Task_0ui5zfs\" targetRef=\"EndEvent_1i0wsx2\" /></bpmn2:process><bpmndi:BPMNDiagram id=\"BPMNDiagram_1\"><bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Process_1\"><bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\"><dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" /></bpmndi:BPMNShape><bpmndi:BPMNShape id=\"Task_095nwfb_di\" bpmnElement=\"Task_095nwfb\"><dc:Bounds x=\"481\" y=\"218\" width=\"100\" height=\"80\" /></bpmndi:BPMNShape><bpmndi:BPMNEdge id=\"SequenceFlow_1intgut_di\" bpmnElement=\"SequenceFlow_1intgut\"><di:waypoint xsi:type=\"dc:Point\" x=\"448\" y=\"258\" /><di:waypoint xsi:type=\"dc:Point\" x=\"481\" y=\"258\" /><bpmndi:BPMNLabel><dc:Bounds x=\"465\" y=\"243\" width=\"0\" height=\"0\" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id=\"Task_1rrr0q9_di\" bpmnElement=\"Task_1rrr0q9\"><dc:Bounds x=\"624.082561728395\" y=\"218\" width=\"100\" height=\"80\" /></bpmndi:BPMNShape><bpmndi:BPMNEdge id=\"SequenceFlow_1t5j14o_di\" bpmnElement=\"SequenceFlow_1t5j14o\"><di:waypoint xsi:type=\"dc:Point\" x=\"581\" y=\"258\" /><di:waypoint xsi:type=\"dc:Point\" x=\"624\" y=\"258\" /><bpmndi:BPMNLabel><dc:Bounds x=\"603\" y=\"243\" width=\"0\" height=\"0\" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id=\"Task_0ui5zfs_di\" bpmnElement=\"Task_0ui5zfs\"><dc:Bounds x=\"766.9359805510535\" y=\"217.56482982171798\" width=\"100\" height=\"80\" /></bpmndi:BPMNShape><bpmndi:BPMNEdge id=\"SequenceFlow_0rw14fx_di\" bpmnElement=\"SequenceFlow_0rw14fx\"><di:waypoint xsi:type=\"dc:Point\" x=\"724\" y=\"258\" /><di:waypoint xsi:type=\"dc:Point\" x=\"767\" y=\"258\" /><bpmndi:BPMNLabel><dc:Bounds x=\"746\" y=\"243\" width=\"0\" height=\"0\" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id=\"EndEvent_1i0wsx2_di\" bpmnElement=\"EndEvent_1i0wsx2\"><dc:Bounds x=\"911.9359805510535\" y=\"240\" width=\"36\" height=\"36\" /><bpmndi:BPMNLabel><dc:Bounds x=\"930\" y=\"276\" width=\"0\" height=\"0\" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id=\"SequenceFlow_1b3e9ht_di\" bpmnElement=\"SequenceFlow_1b3e9ht\"><di:waypoint xsi:type=\"dc:Point\" x=\"867\" y=\"258\" /><di:waypoint xsi:type=\"dc:Point\" x=\"912\" y=\"258\" /><bpmndi:BPMNLabel><dc:Bounds x=\"890\" y=\"243\" width=\"0\" height=\"0\" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn2:definitions>",
+    "elementParameters": [
+        {
+            "id": "StartEvent_1",
+            "type": "Start",
+            "parameters": {},
+            "selectedTypeId": "ManualTrigger",
+            "promoteResultAs": null,
+            "name": "Manual",
+            "description": null,
+            "isDefault": null,
+            "shouldRetry": null,
+            "maxRetryCount": null
+        },
+        {
+            "id": "Task_095nwfb",
+            "type": "Task",
+            "parameters": {
+                "path": {
+                    "mode": "text",
+                    "value": "C:\\FRENDS work folder\\file.xml"
+                }
+            },
+            "selectedTypeId": "/ProcessTask/48946ebf-407c-4b13-8d95-4df70c6c62cf/v1",
+            "promoteResultAs": null,
+            "name": "Read file",
+            "description": "Description FINDME",
+            "isDefault": null,
+            "shouldRetry": false,
+            "maxRetryCount": null
+        },
+        {
+            "id": "Task_1rrr0q9",
+            "type": "Task",
+            "parameters": {
+                "Input": {
+                    "mode": "csharp",
+                    "value": "#result[Read file]"
+                },
+                "XSLT": {
+                    "mode": "xml",
+                    "value": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<xsl:stylesheet version=\"1.0\"\nxmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n<xsl:template match=\"/\">\n  <html>\n  <body>\n    <h2>My CD Collection</h2>\n    <table border=\"1\">\n      <tr bgcolor=\"#9acd32\">\n        <th>Title</th>\n        <th>Artist</th>\n      </tr>\n      <xsl:for-each select=\"catalog/cd\">\n      <tr>\n        <td><xsl:value-of select=\"title\" /></td>\n        <td><xsl:value-of select=\"artist\" /></td>\n      </tr>\n      </xsl:for-each>\n    </table>\n  </body>\n  </html>\n</xsl:template>\n</xsl:stylesheet>\n\n"
+                },
+                "XSLTParameters": [],
+                "Parser": {
+                    "mode": "select",
+                    "value": "Saxon"
+                }
+            },
+            "selectedTypeId": "/ProcessTask/9a388649-352f-4552-9a65-619a7660240c/v1",
+            "promoteResultAs": null,
+            "name": "Convert to HTML via XSLT",
+            "description": null,
+            "isDefault": null,
+            "shouldRetry": false,
+            "maxRetryCount": null
+        },
+        {
+            "id": "Task_0ui5zfs",
+            "type": "Task",
+            "parameters": {
+                "Input": {
+                    "mode": "text",
+                    "value": "{{#result[Convert to HTML via XSLT]}}"
+                },
+                "DestinationFolder": {
+                    "mode": "text",
+                    "value": "C:\\FRENDS work folder"
+                },
+                "FileNameParts": [
+                    {
+                        "FileNamePart": {
+                            "mode": "text",
+                            "value": "out.html"
+                        }
+                    }
+                ],
+                "encoding": {
+                    "mode": "text",
+                    "value": "utf-8"
+                },
+                "overwrite": {
+                    "mode": "toggle",
+                    "value": false
+                }
+            },
+            "selectedTypeId": "/ProcessTask/b3e66c11-d131-466b-8740-688804c20d32/v1",
+            "promoteResultAs": null,
+            "name": "Write file",
+            "description": null,
+            "isDefault": null,
+            "shouldRetry": false,
+            "maxRetryCount": null
+        },
+        {
+            "id": "EndEvent_1i0wsx2",
+            "type": "Return",
+            "parameters": {
+                "expression": {
+                    "mode": "csharp",
+                    "value": "#result"
+                }
+            },
+            "selectedTypeId": null,
+            "promoteResultAs": null,
+            "name": null,
+            "description": null,
+            "isDefault": null,
+            "shouldRetry": null,
+            "maxRetryCount": null
+        }
+    ],
+    "manualTrigger": [],
+    "obsoleteTasks": [],
+    "draftId": null,
+    "isDraft": false,
+    "isSubprocess": false,
+    "graphData": null,
+    "triggerData": [],
+    "majorVersion": 0,
+    "minorVersion": 1,
+    "isMigration": false,
+    "isDeleted": false,
+    "version": 3,
+    "uniqueIdentifier": "5f82b9ad-f5c3-47fd-b790-5fe8ae1a019e",
+    "id": 308,
+    "name": "Harjoitus 1",
+    "tagString": "",
+    "tags": [],
+    "modified": "2017-03-14T14:06:35",
+    "modifier": "jefim.borissov@frendsapp.com",
+    "returnUrl": null,
+    "hasEditorRights": false,
+    "headerText": null,
+    "customColumnElements": null,
+    "description": "",
+    "isNotLatestVersion": false,
+    "latestVersionId": 0,
+    "displayName": "Harjoitus 1",
+    "changeDescription": ""
+}
