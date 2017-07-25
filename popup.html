@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="lib/jquery-confirm.min.css" />
         <style rel="stylesheet" type="text/css">
         button { margin: 5px; }
         .bjs-container { width: 0 !important; height: 0 !important; }
         </style>
     </head>
-    <body style="width: 400px">
-        <div style="width:400px; text-align: center">
+    <body style="width: 600px">
+        <div style="width:600px; text-align: center">
             <h3>Hello, FREND!</h3>
-            <button id="copyDocs">Copy docs to clipboard</button>
-            <button id="copyDocsAndSaveImage">Copy docs to clipboard AND save screenshot PNG</button>
+            <button id="copyDocs">Copy docs to clipboard</button><br />
+            <button id="copyDocsAndSaveImage">Copy docs to clipboard AND save screenshot PNG</button><br />
+            <button id="copyEnvVarUsage">Copy env var usage</button><br />
+            <button id="tellDadJoke">Tell me a dad joke</button><br />
             <p id="status" style="color:green; font-size: 250%"></p>
         </div>
         <div style="height: 1px; width: 1px; overflow: none" id="imgContainer"></div>
+        <p id="status2" style="text-align: center"></p>
 
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="underscore.js"></script>
-        <script type="text/javascript" src="bpmn-viewer.js"></script>
-        <script type="text/javascript" src="filesaver.js"></script>
-        <script type="text/javascript" src="spin.min.js"></script>
+        <script type="text/javascript" src="lib/jquery.js"></script>
+        <script type="text/javascript" src="lib/underscore.js"></script>
+        <script type="text/javascript" src="lib/bpmn-viewer.js"></script>
+        <script type="text/javascript" src="lib/filesaver.js"></script>
+        <script type="text/javascript" src="lib/spin.min.js"></script>
+        <script type="text/javascript" src="lib/jquery-confirm.min.js"></script>
         <script type="text/javascript" src="popup.js"></script>
     </body>
 </html>

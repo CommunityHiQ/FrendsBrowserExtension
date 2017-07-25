@@ -313,6 +313,174 @@ function copyDocumentationToClipboard(tab, savePicture) {
   var result = xhr.responseText;
 }
 
+function tellMeDadJoke()
+{
+  $.getJSON('https://icanhazdadjoke.com').then(o => {
+    setStatus2Text(o.joke);
+  })
+}
+
+function alert(text) {
+  $.alert({
+    boxWidth: '300px',
+    useBootstrap: false,
+    content: text });
+}
+
+function copyEnvVarUsage(tab)
+{
+  //var answer = confirm("Are you sure you want to do this? This will make this extension query ALL processes that you are seeing, including the ones on other pages!");
+  $.confirm({
+    boxWidth: '300px',
+    useBootstrap: false,
+    title: 'Are you absolutely sure?',
+    content: 'Are you sure you want to do this? This will make this extension query ALL processes that you are seeing, including the ones on other pages!',
+    buttons: {
+      confirm: {
+        text: 'Yes, do it!',
+        btnClass: 'btn-blue',
+        keys: ['enter', 'shift'],
+        action: function(){
+          copyEnvVarUsageImpl(tab);
+        }
+      },
+      cancel: function () {
+        // do nothing
+      },
+    }
+  });
+}
+
+function copyEnvVarUsageImpl(tab)
+{
+  // Initial URL:
+  // https://sales-supp.frendsapp.com/Process/List/Default?timelimit=7&reverseSort=false&orderByField=name
+  // Needed URL:
+  // https://sales-supp.frendsapp.com/Process/GetProcessList?environmentName=Default&timeLimit=0
+  var getProcessListUrl = tab.url.replace(
+    /\/Process\/List\/([^?]+)[^$]+timelimit=([0-9]+)[^$]+/g, 
+    '/Process/GetProcessList?environmentName=$1&timeLimit=$2');
+  console.log(getProcessListUrl);
+  setStatus2Text(getProcessListUrl);
+
+
+  setStatus2Text("Requesting info about processes in current view, including all pages.")
+  $.getJSON(getProcessListUrl, function(response) {
+    console.log(response);
+    setStatus2Text("Info about processes received. Total number of processes: " + response.data.processList.length);
+
+    var countOfReceivedProcesses = 0;
+
+    var allRefs = [];
+    for(var i = 0; i < response.data.processList.length; i++) {
+      processJson = response.data.processList[i]; 
+
+      // Create URL
+      // example: https://frendsvnext.frendsapp.com/api/process/?id=1734
+      var processInfoUrl = tab.url.replace(
+        /\/Process\/List\/[^$]+/g, 
+        '/api/process/?id=' + processJson.id);
+      $.getJSON(processInfoUrl, function(processInfo) {
+        //console.log(processInfo);
+        countOfReceivedProcesses++;
+        setStatus2Text(
+          "Processing process #" + countOfReceivedProcesses + 
+          " / " + response.data.processList.length + ".");
+          var refs = getEnvVarReferencesFromProcessInfoJson(processInfo);
+          allRefs.push({ processInfo: processInfo, refs: refs });
+        if(countOfReceivedProcesses == response.data.processList.length)
+        {
+          console.log(allRefs);
+          var html = generateEnvVarHtml(allRefs);
+          copyMime(html, 'text/html');
+          setStatus2Text("All done! Now paste somewhere that supports HTML pasting (e.g. Confluence).");
+        }
+      });
+    }
+  });
+}
+
+function generateEnvVarHtml(allRefs)
+{
+  allRefs = _.sortBy(allRefs, function(r) { return r.processInfo.name; });
+  var output = "<table>";
+  output += "<tr><th>Process</th><th>Environment variable</th></tr>";
+  for(var i = 0; i < allRefs.length; i++)
+  {
+    if(allRefs[i].refs.length == 0) 
+    {
+      output += "<tr>";
+      output += '<td>' + allRefs[i].processInfo.name + '</td>';
+      output += '<td>-</td>';
+      output += "</tr>";
+    }
+
+    for(var j = 0; j < allRefs[i].refs.length; j++)
+    {
+      output += "<tr>";
+      if(j == 0)
+      {
+        output += '<td rowspan="'+allRefs[i].refs.length+'">' + allRefs[i].processInfo.name + '</td>';
+      }
+
+      output += '<td>' + allRefs[i].refs[j] + '</td>';
+      output += "</tr>";
+    }
+
+  }
+  output += "</table>";
+
+  return output;
+}
+
+function getEnvVarReferencesFromProcessInfoJson(processInfoJson)
+{
+  var refs = [];
+  for(var i = 0; i < processInfoJson.elementParameters.length; i++)
+  {
+    for(var paramName in processInfoJson.elementParameters[i].parameters)
+    {
+      parameter = processInfoJson.elementParameters[i].parameters[paramName];
+      //console.log(parameter);
+      refs = refs.concat(getAllEnvRefsFromObject(parameter));
+    }
+  }
+
+  refs = _.uniq(refs);
+  return refs;
+}
+
+function getAllEnvRefsFromObject(object) {
+  var regex = /#env\.[\w]+/i;
+  var refs = [];
+  for(var prop in object)
+  {
+    if(object[prop] == null) continue;
+
+    if(typeof object[prop] === 'object')
+    {
+      refs = refs.concat(getAllEnvRefsFromObject(object[prop]));
+    }
+    else
+    {
+      var matches = regex.exec(object[prop]);
+      if(matches != null)
+      {
+        for(var m = 0; m < matches.length; m++)
+        {
+          refs.push(matches[m]);
+        }
+      }
+    }
+  }
+  return refs;
+}
+
+function setStatus2Text(text) {
+  var el = document.getElementById('status2');
+  el.innerText = text;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('copyDocs');
     // onClick's logic below:
@@ -329,6 +497,24 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.tabs.query({active: true}, function(tabs)
       {
         copyDocumentationToClipboard(tabs[0], true);
+      });
+    });
+
+    var buttonCopyEnvVarUsage = document.getElementById('copyEnvVarUsage');
+    // onClick's logic below:
+    buttonCopyEnvVarUsage.addEventListener('click', function() {
+      chrome.tabs.query({active: true}, function(tabs)
+      {
+        copyEnvVarUsage(tabs[0]);
+      });
+    });
+
+    var buttonTellDadJoke = document.getElementById('tellDadJoke');
+    // onClick's logic below:
+    buttonTellDadJoke.addEventListener('click', function() {
+      chrome.tabs.query({active: true}, function(tabs)
+      {
+        tellMeDadJoke();
       });
     });
 

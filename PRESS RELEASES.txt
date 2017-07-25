@@ -4,7 +4,7 @@ Lust, Violence, Hunger, Pencil, Jefim - all those things come to mind when speak
 
 From the creator of the Jefim's Incredible XSLT Tool comes a new, revolutionary tool that will make your smiles twice as happy when you're documenting things. Here comes your new favourite IEX tool:
 
- === Jefim's Mondboggling Documentation Aberration 1.0 ===
+ === Jefim's Mindboggling Documentation Aberration 1.0 ===
 
 With a press of a button you can:
 1. Copy the process documentation table to clipboard.
@@ -12,3 +12,11 @@ With a press of a button you can:
 
 Now I want you to pause for just a second. Breathe in. Breathe out. Resist the urge to scream your lungs out in joy - people are working here you know. Now go get the extension from  ... \\lulu ...
 
+
+1.1
+
+There is no 'A' in silence. There is no 'Z' in honor. And there is no point in those statements. Why bother making a point when I've got a new version of the Jefim's Mindboggling Documentation Aberration? Version 1.1 is ready and includes new, most mindboggling features ever. Ossi will have to merge with conflicts for sure, but you can't make a fire without breaking some legs. This is probably the lamest and weakest release notes text I've written like ever!
+
+Without further ado, here the new shit:
+- You can now extract all environment variable usages from ALL processes into a nice HTML table, just paste it into Confluence!
+- When you get bored - get a fresh dad joke with a press of a button! Voila! (Caution - this actually makes a get request to the dad joke site!)
