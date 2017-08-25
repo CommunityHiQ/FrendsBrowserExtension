@@ -1,2 +1,0 @@
-1. In Chrome go to Menu -> More tools -> Extensions -> Tick the "Developer mode" checkbox
-2. Press "Load unpacked extension..." and choose the folder with extension files.

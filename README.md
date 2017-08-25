@@ -56,17 +56,16 @@ How many shades of grey there are in Frends process editor? None. And there are 
 
 # Credits:
 
-Jefim Borissov
-Ossi Galkin
+[Jefim Borissov](https://github.com/jefim), [Ossi Galkin](https://github.com/OssiGalkin).
 
 # Used libraries and other stuff: 
 
-Underscore.js (http://underscorejs.org/ MIT License)
-spin.js (http://spin.js.org/ MIT License)
-RequireJS (https://github.com/requirejs/requirejs MIT license)
-jQuery (https://jquery.org MIT license)
-FileSaver.js (https://github.com/eligrey/FileSaver.js The MIT License)
-
-Solarized (http://ethanschoonover.com/solarized)
+* Underscore.js (http://underscorejs.org/ MIT License)
+* spin.js (http://spin.js.org/ MIT License)
+* RequireJS (https://github.com/requirejs/requirejs MIT license)
+* jQuery (https://jquery.org MIT license)
+* FileSaver.js (https://github.com/eligrey/FileSaver.js The MIT License)
+* Solarized (http://ethanschoonover.com/solarized)
+* Icons made by [Madebyoliver](http://www.flaticon.com/authors/madebyoliver) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
 
 <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
