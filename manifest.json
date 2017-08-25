@@ -1,19 +1,22 @@
 {
-  "name": "Copy FRENDS docs",
+  "name": "Browser extension for Frends 4",
   "description": "See title :)",
-  "version": "2.0",
+  "version": "1.3",
   "permissions": [
     "activeTab",
-    "clipboardWrite"
+    "clipboardWrite",
+	"storage"
   ],
-  "icons": { "128": "icon.PNG" },
-  // "background": {
-  //   "scripts": ["jquery.js",  "underscore.js", "bpmn-viewer.js", "popup.js"],
-  //   "persistent": true
-  // },
+  "icons": { "128": "icons/server128.png" },
   "browser_action": {
     "default_title": "Click me for FRENDly activities",
     "default_popup": "popup.html"
   },
+    "content_scripts": [
+    {
+      "matches": ["*://*.frendsapp.com/Process/Edit/*"],
+	  "js":["lib/jquery.js", "colorThemeChanger.js"]
+    }
+  ],
   "manifest_version": 2
 }

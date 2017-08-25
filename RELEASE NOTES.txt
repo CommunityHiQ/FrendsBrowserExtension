@@ -1,5 +1,0 @@
-1.0
-
-- Initial release
-- Copy documentation table
-- Copy documentation table + save PNG
