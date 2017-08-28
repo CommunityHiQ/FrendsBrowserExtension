@@ -25,6 +25,8 @@ Firefox: Visit about:debugging page. There, look for the ‘Load Temporary add-o
 
 Chrome: Visit chrome://extensions, Enable Developer mode by ticking the checkbox in the upper-right corner. Click on the "Load unpacked extension..." button. Select the directory containing extension. Now the extension will work, but for some reason, dark theme cannot be enabled in Chrome, but light theme will work.
 
+**By default extension will only work in Frends hosted on frendsapp.com. To enable it on on-prem installations, add correct url to manifest.json file.**
+
 # Release notes
 
 ## 1.0
